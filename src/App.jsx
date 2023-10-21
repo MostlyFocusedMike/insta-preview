@@ -58,12 +58,7 @@ function App() {
           multiple
         />
       </form>
-      {
-        imageSources.length
-          ? <div>{imageSources.map((image) => <img key={image} src={image} alt="" />)}</div>
-          : null
-      }
-      <Container imageSources={imageSources} />
+      <Container imageSources={imageSources} setImageSources={setImageSources}/>
       <button onClick={() => setImageFiles([])}>Delete files </button>
     </div>
   );
