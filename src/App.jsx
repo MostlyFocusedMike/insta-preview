@@ -3,6 +3,7 @@ import "./App.css";
 import Container from "./Container";
 
 const imageTypeRegex = /image\/(png|jpg|jpeg)/gm;
+const imageSourceStorageLimit = 25;
 
 function App() {
   const [imageFiles, setImageFiles] = useState([]);
@@ -14,8 +15,6 @@ function App() {
   };
 
   useEffect(() => {
-    const fileReaders = [];
-
     if (!imageFiles.length) return;
 
     const promises = imageFiles.map(file => new Promise((res, rej) => {
@@ -24,9 +23,8 @@ function App() {
       fileReader.onload = ({ target: { result } }) => (result && res(result));
       fileReader.onabort = () => rej(new Error("File reading aborted"));
       fileReader.onerror = () => rej(new Error("Failed to read file"));
-      fileReader.readAsDataURL(file);
 
-      fileReaders.push(fileReader);
+      fileReader.readAsDataURL(file);
     }));
 
     Promise.all(promises)
@@ -45,19 +43,27 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <form>
-        <label htmlFor="file">Upload images</label>
-        <input
-          type="file"
-          id="file"
-          onChange={fileChangeHandler}
-          accept="image/png, image/jpg, image/jpeg"
-          multiple
-        />
-      </form>
-      <Container imageSources={imageSources} setImageSources={setImageSources}/>
-    </div>
+    <>
+      <header>
+        <p id="logo">InstaPreview</p>
+      </header>
+      <main>
+        <form aria-labelledby="form-heading">
+          <h2 id="form-heading">Add your previews!</h2>
+          <p>Remember, you have a maximum of {imageSourceStorageLimit}.</p>
+          <p>(You have {imageSourceStorageLimit - imageSources.length} left)</p>
+          <label htmlFor="file">Upload images</label>
+          <input
+            type="file"
+            id="file"
+            onChange={fileChangeHandler}
+            accept="image/png, image/jpg, image/jpeg"
+            multiple
+            />
+        </form>
+        <Container imageSources={imageSources} setImageSources={setImageSources}/>
+      </main>
+    </>
   );
 }
 
