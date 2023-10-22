@@ -30,6 +30,17 @@ img {
 
 .real-image {
   opacity: 0;
-  width: 100%;
-  height: 100%;
+  width: 85%;
+  height: 85%;
+}
+
+.delete {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.preview-card:hover .delete{
+  opacity: 1;
 }
