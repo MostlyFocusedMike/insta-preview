@@ -40,8 +40,8 @@ function App() {
   }, [imageSources]);
 
   useEffect(() => {
-    const result = localStorage.getItem('images') || '[]';
-    setImageSources(JSON.parse(result));
+    const result = JSON.parse(localStorage.getItem('images') || '[]');
+    setImageSources(result);
   }, []);
 
   return (
@@ -57,7 +57,6 @@ function App() {
         />
       </form>
       <Container imageSources={imageSources} setImageSources={setImageSources}/>
-      <button onClick={() => setImageFiles([])}>Delete files </button>
     </div>
   );
 }
