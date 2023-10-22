@@ -28,12 +28,6 @@ img {
   background-position: center;
 }
 
-.real-image {
-  opacity: 0;
-  width: 85%;
-  height: 85%;
-}
-
 .delete {
   opacity: 0;
   position: absolute;

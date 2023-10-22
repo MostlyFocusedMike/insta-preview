@@ -38,6 +38,7 @@ export default function Card({ id, imageSource, setImageSources, index, moveCard
   drag(drop(ref))
 
   const handleDelete = ({ target: { dataset: { idx }}}) => {
+    console.log('hi:', );
     setImageSources(sources =>  sources.filter((_, i) => i !== Number(idx)));
   }
 
@@ -49,7 +50,6 @@ export default function Card({ id, imageSource, setImageSources, index, moveCard
       data-handler-id={handlerId}
     >
       <button className="delete" data-idx={index} onClick={handleDelete}>X</button>
-      <img className="real-image" src={imageSource} />
     </div>
   )
 }
