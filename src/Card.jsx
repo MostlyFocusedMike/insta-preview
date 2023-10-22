@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 
-export default function Card({ id, imageSource, index, moveCard }) {
+export default function Card({ id, imageSource, setImageSources, index, moveCard }) {
   const ref = useRef(null)
   const [{ handlerId }, drop] = useDrop({
     accept: 'cardType',
@@ -29,17 +29,17 @@ export default function Card({ id, imageSource, index, moveCard }) {
 
   const [{ isDragging }, drag] = useDrag({
     type: 'cardType',
-    item: () => {
-      return { id, index }
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
+    item: () => ({ id, index }),
+    collect: (monitor) => ({ isDragging: monitor.isDragging() }),
   })
 
   const opacity = isDragging ? 0 : 1
 
   drag(drop(ref))
+
+  const handleDelete = ({ target: { dataset: { idx }}}) => {
+    setImageSources(sources =>  sources.filter((_, i) => i !== Number(idx)));
+  }
 
   return (
     <div
@@ -48,6 +48,7 @@ export default function Card({ id, imageSource, index, moveCard }) {
       style={{ opacity, backgroundImage: `url(${imageSource})` }}
       data-handler-id={handlerId}
     >
+      <button className="delete" data-idx={index} onClick={handleDelete}>X</button>
       <img className="real-image" src={imageSource} />
     </div>
   )

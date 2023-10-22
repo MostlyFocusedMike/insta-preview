@@ -14,7 +14,7 @@ export default function Container({ imageSources, setImageSources }) {
     )
   }, [setImageSources]);
 
-  const renderCard = useCallback((imageSource, index) => {
+  const renderCard = useCallback((imageSource, setImageSources, index) => {
     return (
       <Card
         key={imageSource}
@@ -22,6 +22,7 @@ export default function Container({ imageSources, setImageSources }) {
         id={imageSource}
         moveCard={moveCard}
         imageSource={imageSource}
+        setImageSources={setImageSources}
       />
     )
   }, [moveCard]);
@@ -29,7 +30,7 @@ export default function Container({ imageSources, setImageSources }) {
   return (
     <>
       <div id="fake-phone-screen">
-        { imageSources.map((imageSource, i) => renderCard(imageSource, i)) }
+        { imageSources.map((imageSource, i) => renderCard(imageSource, setImageSources, i)) }
       </div>
     </>
   )
