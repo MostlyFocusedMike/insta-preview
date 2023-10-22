@@ -9,7 +9,8 @@ img {
 
 #fake-phone-screen {
   width: 600px;
-  height: 1000px;
+  height: 800px;
+  overflow: scroll;
   border: 2px solid black;
   display: flex;
   align-content: flex-start;
