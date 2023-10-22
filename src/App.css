@@ -3,7 +3,32 @@ html {
 }
 
 img {
-  width: 80px;
+  width: 100;
   height: 80px;
+}
+
+#fake-phone-screen {
+  width: 600px;
+  height: 1000px;
   border: 2px solid black;
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  margin: 1rem auto;
+}
+
+.preview-card {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  background-color: black;
+  background-size: cover;
+  background-position: center;
+}
+
+.real-image {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
 }

@@ -21,9 +21,7 @@ function App() {
     const promises = imageFiles.map(file => new Promise((res, rej) => {
       const fileReader = new FileReader();
 
-      fileReader.onload = ({ target: { result } }) => {
-        result && res(result)
-      };
+      fileReader.onload = ({ target: { result } }) => (result && res(result));
       fileReader.onabort = () => rej(new Error("File reading aborted"));
       fileReader.onerror = () => rej(new Error("Failed to read file"));
       fileReader.readAsDataURL(file);

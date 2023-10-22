@@ -1,14 +1,6 @@
 import { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
-const style = {
-  border: '1px dashed gray',
-  padding: '0.5rem 1rem',
-  marginBottom: '.5rem',
-  backgroundColor: 'white',
-  width: 100,
-  height: 100,
-  cursor: 'move',
-}
+
 export default function Card({ id, imageSource, index, moveCard }) {
   const ref = useRef(null)
   const [{ handlerId }, drop] = useDrop({
@@ -50,8 +42,13 @@ export default function Card({ id, imageSource, index, moveCard }) {
   drag(drop(ref))
 
   return (
-    <div ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
-      <img src={imageSource} />
+    <div
+      className="preview-card"
+      ref={ref}
+      style={{ opacity, backgroundImage: `url(${imageSource})` }}
+      data-handler-id={handlerId}
+    >
+      <img className="real-image" src={imageSource} />
     </div>
   )
 }

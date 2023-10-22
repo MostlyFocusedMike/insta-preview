@@ -1,11 +1,6 @@
 import update from 'immutability-helper'
 import { useCallback } from 'react'
 import Card from './Card'
-const style = {
-  width: 500,
-  display: 'flex',
-  flexWrap: 'wrap',
-}
 
 export default function Container({ imageSources, setImageSources }) {
   const moveCard = useCallback((dragIndex, hoverIndex) => {
@@ -17,7 +12,7 @@ export default function Container({ imageSources, setImageSources }) {
         ],
       }),
     )
-  }, [])
+  }, [setImageSources]);
 
   const renderCard = useCallback((imageSource, index) => {
     return (
@@ -29,11 +24,13 @@ export default function Container({ imageSources, setImageSources }) {
         imageSource={imageSource}
       />
     )
-  }, [])
+  }, [moveCard]);
 
   return (
     <>
-      <div style={style}>{imageSources.map((imageSource, i) => renderCard(imageSource, i))}</div>
+      <div id="fake-phone-screen">
+        { imageSources.map((imageSource, i) => renderCard(imageSource, i)) }
+      </div>
     </>
   )
 }
