@@ -17,11 +17,11 @@ export default function Container({ imageSources, setImageSources }) {
   const renderCard = useCallback((imageSource, setImageSources, index) => {
     return (
       <Card
-        key={imageSource}
+        key={imageSource.uuid}
         index={index}
         id={imageSource}
         moveCard={moveCard}
-        imageSource={imageSource}
+        imageSource={imageSource.imgSrc}
         setImageSources={setImageSources}
       />
     )

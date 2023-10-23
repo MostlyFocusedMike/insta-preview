@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 import "./App.css";
 import Container from "./Container";
+import { getImageSources, updateImageSources } from "./adapter";
 
 const imageTypeRegex = /image\/(png|jpg|jpeg)/gm;
 const imageSourceStorageLimit = 25;
@@ -11,6 +13,7 @@ function App() {
 
   const fileChangeHandler = ({ target: { files }}) => {
     const validImgFiles = [...files].filter(({ type }) => type.match(imageTypeRegex));
+    if (validImgFiles.length + imageSources.length > imageSourceStorageLimit) return alert("That's too many images!");
     validImgFiles.length ? setImageFiles(validImgFiles) : alert("Images aren't valid!");
   };
 
@@ -28,18 +31,20 @@ function App() {
     }));
 
     Promise.all(promises)
-      .then(imgSources => setImageSources((prevImgSources) => [...imgSources, ...prevImgSources]))
+      .then(imgSources => {
+        const newImageSources = imgSources.map(imgSrc => ({ uuid: uuidv4(), imgSrc }));
+        setImageSources((prevImgSources) => [...newImageSources, ...prevImgSources])
+      })
       .catch(console.error);
   }, [imageFiles]);
 
   useEffect(() => {
     if (!imageSources.length) return;
-    localStorage.setItem('images', JSON.stringify(imageSources));
+    updateImageSources(imageSources);
   }, [imageSources]);
 
   useEffect(() => {
-    const result = JSON.parse(localStorage.getItem('images') || '[]');
-    setImageSources(result);
+    setImageSources(getImageSources());
   }, []);
 
   return (
@@ -49,17 +54,18 @@ function App() {
       </header>
       <main>
         <form aria-labelledby="form-heading">
-          <h2 id="form-heading">Add your previews!</h2>
+          <h2 id="form-heading">Add Your Previews!</h2>
           <p>Remember, you have a maximum of {imageSourceStorageLimit}.</p>
           <p>(You have {imageSourceStorageLimit - imageSources.length} left)</p>
-          <label htmlFor="file">Upload images</label>
+          <label htmlFor="file" className="custom-file-upload" >Upload images: </label>
           <input
             type="file"
             id="file"
             onChange={fileChangeHandler}
             accept="image/png, image/jpg, image/jpeg"
             multiple
-            />
+          />
+          <p>Heads up: when moving images around, click in the middle of the picture for best dragging results</p>
         </form>
         <Container imageSources={imageSources} setImageSources={setImageSources}/>
       </main>

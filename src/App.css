@@ -1,7 +1,13 @@
+:root {
+  --preview-square: 150px;
+}
+
 html, body {
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
   padding: 0;
   margin: 0;
+  background-color: #222223;
 }
 
 img {
@@ -9,21 +15,67 @@ img {
   height: 80px;
 }
 
+header {
+  text-align: right;
+  font-weight: 100;
+  color: #efefef;
+  background-color: black;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+#logo {
+  margin: 0;
+  font-size: 2rem;
+  font-style: italic;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+}
+
+form {
+  background-color: #EFEFEF;
+  padding: 1rem;
+  text-align: center;
+  width: 20rem;
+}
+
+#form-heading {
+  font-weight: 100;
+  margin: 0 0 1rem 0;
+}
+
+label, input {
+  display: block;
+}
+
+input[type="file"] {
+  text-align: center;
+  width: 5.9rem;
+  overflow: hidden;
+  margin: 1rem auto;
+}
+
 #fake-phone-screen {
-  width: 600px;
-  height: 800px;
+  width: calc(var(--preview-square) * 3);
+  height: calc(var(--preview-square) * 5.3);
   overflow: scroll;
-  border: 2px solid black;
+  border: 0.5rem solid #EFEFEF;
   display: flex;
   align-content: flex-start;
   flex-wrap: wrap;
-  margin: 1rem auto;
+  background-color: black;
 }
 
 .preview-card {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: var(--preview-square);
+  height: var(--preview-square);
   overflow: hidden;
   background-color: black;
   background-size: cover;
