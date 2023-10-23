@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form aria-labelledby="form-heading">
+    <h2 id="form-heading">Add Your Previews!</h2>
+    <p>Remember, you have a maximum of {imageSourceStorageLimit}.</p>
+    <p>(You have {imageSourceStorageLimit - imageSources.length} left)</p>
+    <label htmlFor="file" className="custom-file-upload">Upload images: </label>
+    <input type="file" id="file" accept="image/png, image/jpg, image/jpeg" multiple />
+    <p>Heads up: when moving images around, click in the middle of the picture for best dragging results</p>
+  </form>
+<script>
+
+const imageTypeRegex = /image\/(png|jpg|jpeg)/gm;
+
+const input = document.querySelector('input[type="file"]');
+
+const fileChangeHandler = ({ target: { files }}) => {
+  const imageFiles = [...files].filter(({ type }) => type.match(imageTypeRegex));
+
+  if (!imageFiles.length) return;
+
+  imageFiles.map(file => {
+    const fileReader = new FileReader();
+
+    fileReader.onload = ({ target: { result } }) => {
+      const img = new Image();
+      img.src = result;
+
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = img.width / 4;
+        canvas.height = img.height / 4;
+        ctx.drawImage(img, 0, 0, canvas.width / 4, canvas.height / 4);
+
+        console.log('small', canvas.toDataURL('image/jpeg'));
+        document.body.append(canvas);
+      }
+      // img.style.width = '400px';
+      // img.style.width = '500px';
+      // document.body.append(img);
+    };
+
+    fileReader.readAsDataURL(file);
+  });
+};
+
+input.addEventListener('change', fileChangeHandler);
+</script>
+</body>
+</html>

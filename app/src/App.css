@@ -10,11 +10,6 @@ html, body {
   background-color: #222223;
 }
 
-img {
-  width: 100;
-  height: 80px;
-}
-
 header {
   text-align: right;
   font-weight: 100;
@@ -62,24 +57,25 @@ input[type="file"] {
 }
 
 #fake-phone-screen {
-  width: calc(var(--preview-square) * 3);
+  width: calc(var(--preview-square) * 3.04);
   height: calc(var(--preview-square) * 5.3);
   overflow: scroll;
   border: 0.5rem solid #EFEFEF;
   display: flex;
   align-content: flex-start;
   flex-wrap: wrap;
-  background-color: black;
+  background-color: #888;
 }
 
 .preview-card {
   position: relative;
+  border: 1px solid #EFEFEF;
   width: var(--preview-square);
   height: var(--preview-square);
   overflow: hidden;
-  background-color: black;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .delete {
