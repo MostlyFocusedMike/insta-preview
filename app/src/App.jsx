@@ -31,7 +31,7 @@ function App() {
           const canvas = document.createElement('canvas');
           const ctx = canvas.getContext('2d');
 
-          const divisor = 8;
+          const divisor = 2;
           canvas.width = img.width / divisor;
           canvas.height = img.height / divisor;
           ctx.imageSmoothingEnabled = true;
