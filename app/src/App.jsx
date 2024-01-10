@@ -5,7 +5,7 @@ import Container from "./Container";
 import { getImageSources, updateImageSources } from "./adapter";
 
 const imageTypeRegex = /image\/(png|jpg|jpeg)/gm;
-const imageSourceStorageLimit = 25;
+const imageSourceStorageLimit = 50;
 
 function App() {
   const [imageFiles, setImageFiles] = useState([]);
